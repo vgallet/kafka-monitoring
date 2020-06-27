@@ -1,0 +1,24 @@
+version: "3.5"
+
+services:
+  control-center:
+    image: confluentinc/cp-enterprise-control-center:${version_confluent}
+    hostname: control-center
+    networks:
+      - confluent
+    ports:
+      - 9021:9021
+    environment:
+      CONTROL_CENTER_BOOTSTRAP_SERVERS: kafka-1:9092,kafka-2:9092,kafka-3:9092
+      CONTROL_CENTER_ZOOKEEPER_CONNECT: zk-1:2181,zk-2:2181,zk-3:2181
+      CONTROL_CENTER_REPLICATION_FACTOR: 3
+      CONTROL_CENTER_MONITORING_INTERCEPTOR_TOPIC_REPLICATION: 3
+      CONTROL_CENTER_INTERNAL_TOPICS_REPLICATION: 3
+      CONTROL_CENTER_COMMAND_TOPIC_REPLICATION: 3
+      CONTROL_CENTER_METRICS_TOPIC_REPLICATION: 3
+      CONTROL_CENTER_STREAMS_NUM_STREAM_THREADS: 1
+      CONTROL_CENTER_STREAMS_CONSUMER_REQUEST_TIMEOUT_MS: "960032"
+      CONTROL_CENTER_SCHEMA_REGISTRY_URL: "http://schema-registry:8081"
+
+networks:
+  confluent:
