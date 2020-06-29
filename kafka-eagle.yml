@@ -1,0 +1,13 @@
+version: "3.5"
+
+services:
+  kafka-eagle:
+    build: ./kafka-eagle/.
+    hostname: kafka-eagle
+    networks:
+      - confluent
+    ports:
+      - 8048:8048
+
+networks:
+  confluent:
