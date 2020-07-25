@@ -52,6 +52,7 @@ services:
       - confluent
     ports:
       - 9092:9092
+      - 1098:1098
     volumes:
       - data-kafka-1:/var/lib/kafka/data
     environment:
@@ -64,6 +65,7 @@ services:
       KAFKA_LOG_RETENTION_HOURS: 6
       KAFKA_METRIC_REPORTERS: "io.confluent.metrics.reporter.ConfluentMetricsReporter"
       CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: "kafka-1:9092,kafka-2:9092,kafka-3:9092"
+      KAFKA_OPTS: "${JMX_ARGS}"
 
   kafka-2:
     image: "confluentinc/cp-enterprise-kafka:${version_confluent}"
