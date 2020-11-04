@@ -4,7 +4,7 @@ services:
     build: ./jconsole/.
     hostname: jconsole
     networks:
-      - confluent
+      - workshop
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
     environment:
@@ -12,4 +12,4 @@ services:
     command: "bash -c 'jconsole kafka-1:1098'"
 
 networks:
-  confluent:
+  workshop:

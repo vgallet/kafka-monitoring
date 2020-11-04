@@ -4,7 +4,7 @@ services:
     image: confluentinc/cp-zookeeper:${version_confluent}
     hostname: zk-1
     networks:
-      - confluent
+      - workshop
     volumes:
       - data-zk-1:/var/lib/zookeeper
     environment:
@@ -19,7 +19,7 @@ services:
     image: confluentinc/cp-zookeeper:${version_confluent}
     hostname: zk-2
     networks:
-      - confluent
+      - workshop
     volumes:
       - data-zk-2:/var/lib/zookeeper
     environment:
@@ -34,7 +34,7 @@ services:
     image: confluentinc/cp-zookeeper:${version_confluent}
     hostname: zk-3
     networks:
-      - confluent
+      - workshop
     volumes:
       - data-zk-3:/var/lib/zookeeper
     environment:
@@ -49,7 +49,7 @@ services:
     image: "confluentinc/cp-enterprise-kafka:${version_confluent}"
     hostname: kafka-1
     networks:
-      - confluent
+      - workshop
     ports:
       - 9092:9092
       - 1098:1098
@@ -71,7 +71,7 @@ services:
     image: "confluentinc/cp-enterprise-kafka:${version_confluent}"
     hostname: kafka-2
     networks:
-      - confluent
+      - workshop
     volumes:
       - data-kafka-2:/var/lib/kafka/data
     environment:
@@ -89,7 +89,7 @@ services:
     image: "confluentinc/cp-enterprise-kafka:${version_confluent}"
     hostname: kafka-3
     networks:
-      - confluent
+      - workshop
     volumes:
       - data-kafka-3:/var/lib/kafka/data
     environment:
@@ -107,7 +107,7 @@ services:
     image: "confluentinc/cp-schema-registry:${version_confluent}"
     hostname: schema-registry
     networks:
-      - confluent
+      - workshop
     ports:
       - 8081:8081
     environment:
@@ -124,4 +124,4 @@ volumes:
   data-kafka-3:
 
 networks:
-  confluent:
+  workshop:
