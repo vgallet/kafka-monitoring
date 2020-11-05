@@ -103,18 +103,6 @@ services:
       KAFKA_METRIC_REPORTERS: "io.confluent.metrics.reporter.ConfluentMetricsReporter"
       CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: "kafka-1:9092,kafka-2:9092,kafka-3:9092"
 
-  schema-registry:
-    image: "confluentinc/cp-schema-registry:${version_confluent}"
-    hostname: schema-registry
-    networks:
-      - workshop
-    ports:
-      - 8081:8081
-    environment:
-      SCHEMA_REGISTRY_HOST_NAME: schema-registry
-      SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: zk-1:2181,zk-2:2181,zk-3:2181
-      SCHEMA_REGISTRY_LISTENERS: http://schema-registry:8081
-
 volumes:
   data-zk-1:
   data-zk-2:
