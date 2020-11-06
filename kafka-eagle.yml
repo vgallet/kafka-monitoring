@@ -5,9 +5,9 @@ services:
     build: ./kafka-eagle/.
     hostname: kafka-eagle
     networks:
-      - confluent
+      - workshop
     ports:
       - 8048:8048
 
 networks:
-  confluent:
+  workshop:

@@ -4,7 +4,7 @@ services:
     image: confluentinc/cp-zookeeper:${version_confluent}
     hostname: zk-1
     networks:
-      - confluent
+      - workshop
     volumes:
       - ./agents:/agents
       - data-zk-1:/var/lib/zookeeper
@@ -21,7 +21,7 @@ services:
     image: confluentinc/cp-zookeeper:${version_confluent}
     hostname: zk-2
     networks:
-      - confluent
+      - workshop
     volumes:
       - ./agents:/agents
       - data-zk-2:/var/lib/zookeeper
@@ -38,7 +38,7 @@ services:
     image: confluentinc/cp-zookeeper:${version_confluent}
     hostname: zk-3
     networks:
-      - confluent
+      - workshop
     volumes:
       - ./agents:/agents
       - data-zk-3:/var/lib/zookeeper
@@ -55,9 +55,10 @@ services:
     image: "confluentinc/cp-enterprise-kafka:${version_confluent}"
     hostname: kafka-1
     networks:
-      - confluent
+      - workshop
     ports:
       - 9092:9092
+      - 1098:1098
     volumes:
       - ./agents:/agents
       - data-kafka-1:/var/lib/kafka/data
@@ -71,12 +72,13 @@ services:
       KAFKA_LOG_RETENTION_HOURS: 6
       KAFKA_METRIC_REPORTERS: "io.confluent.metrics.reporter.ConfluentMetricsReporter"
       CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: "kafka-1:9092,kafka-2:9092,kafka-3:9092"
+      KAFKA_JMX_OPTS: "${JMX_ARGS}"
 
   kafka-2:
     image: "confluentinc/cp-enterprise-kafka:${version_confluent}"
     hostname: kafka-2
     networks:
-      - confluent
+      - workshop
     volumes:
       - ./agents:/agents
       - data-kafka-2:/var/lib/kafka/data
@@ -95,7 +97,7 @@ services:
     image: "confluentinc/cp-enterprise-kafka:${version_confluent}"
     hostname: kafka-3
     networks:
-      - confluent
+      - workshop
     volumes:
       - ./agents:/agents
       - data-kafka-3:/var/lib/kafka/data
@@ -109,18 +111,6 @@ services:
       KAFKA_LOG_RETENTION_HOURS: 6
       KAFKA_METRIC_REPORTERS: "io.confluent.metrics.reporter.ConfluentMetricsReporter"
       CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: "kafka-1:9092,kafka-2:9092,kafka-3:9092"
-      
-  schema-registry:
-    image: "confluentinc/cp-schema-registry:${version_confluent}"
-    hostname: schema-registry
-    networks:
-      - confluent
-    ports:
-      - 8081:8081
-    environment:
-      SCHEMA_REGISTRY_HOST_NAME: schema-registry
-      SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: zk-1:2181,zk-2:2181,zk-3:2181
-      SCHEMA_REGISTRY_LISTENERS: http://schema-registry:8081
 
 volumes:
   data-zk-1:
@@ -131,4 +121,4 @@ volumes:
   data-kafka-3:
 
 networks:
-  confluent:
+  workshop:

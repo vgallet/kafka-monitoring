@@ -5,7 +5,7 @@ services:
     image: confluentinc/cp-enterprise-control-center:${version_confluent}
     hostname: control-center
     networks:
-      - confluent
+      - workshop
     ports:
       - 9021:9021
     environment:
@@ -18,7 +18,6 @@ services:
       CONTROL_CENTER_METRICS_TOPIC_REPLICATION: 3
       CONTROL_CENTER_STREAMS_NUM_STREAM_THREADS: 1
       CONTROL_CENTER_STREAMS_CONSUMER_REQUEST_TIMEOUT_MS: "960032"
-      CONTROL_CENTER_SCHEMA_REGISTRY_URL: "http://schema-registry:8081"
 
 networks:
-  confluent:
+  workshop:

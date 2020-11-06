@@ -5,7 +5,7 @@ services:
     image: tchiotludo/akhq:latest
     hostname: akhq
     networks:
-      - confluent
+      - workshop
     environment:
       AKHQ_CONFIGURATION: |
         akhq:
@@ -13,10 +13,9 @@ services:
             docker-kafka-server:
               properties:
                 bootstrap.servers: "kafka-1:9092, kafka-2:9092, kafka-3:9092"
-              schema-registry:
-                url: "http://schema-registry:8081"
+                
     ports:
       - 8080:8080
 
 networks:
-  confluent:
+  workshop:
