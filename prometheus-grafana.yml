@@ -1,0 +1,33 @@
+version: "3.5"
+services:
+  prometheus:
+    image: prom/prometheus:v2.17.1
+    hostname: prometheus
+    networks:
+      - confluent
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.retention.time=6h'
+    volumes:
+      - ./prometheus:/etc/prometheus
+    ports:
+      - 9090:9090
+
+  grafana:
+    image: grafana/grafana:latest
+    hostname: grafana
+    networks:
+      - confluent
+    ports:
+      - 3000:3000
+    volumes:
+      - grafana-storage:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning
+      - ./grafana/dashboards:/var/lib/grafana/dashboards
+      - ./grafana/plugins:/var/lib/grafana/plugins
+
+volumes:
+  grafana-storage:
+
+networks:
+  confluent:
