@@ -3,25 +3,11 @@ global:
   evaluation_interval: 15s
 
 scrape_configs:
-  - job_name: 'prometheus'
-    scrape_interval: 60s
-    static_configs:
-      - targets: [ 'localhost:9090' ]
   - job_name: 'kafka'
     scrape_interval: 10s
     static_configs:
-      - targets: ['kafka-1:7071', 'kafka-2:7071', 'kafka-3:7071']
+      - targets: ['']
   - job_name: 'zookeeper'
     scrape_interval: 10s
     static_configs:
-      - targets: ['zk-1:7071', 'zk-2:7071', 'zk-3:7071']
-  - job_name: 'stream'
-    scrape_interval: 10s
-    #    metrics_path: '/actuator/prometheus'
-    static_configs:
-      #      - targets: ['stream:9091']
-      - targets: ['stream:7071']
-  - job_name: 'connect'
-    scrape_interval: 10s
-    static_configs:
-      - targets: ['connect:7071']
+      - targets: ['']

@@ -4,7 +4,7 @@ services:
     image: prom/prometheus:v2.17.1
     hostname: prometheus
     networks:
-      - confluent
+      - workshop
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--storage.tsdb.retention.time=6h'
@@ -17,7 +17,7 @@ services:
     image: grafana/grafana:latest
     hostname: grafana
     networks:
-      - confluent
+      - workshop
     ports:
       - 3000:3000
     volumes:
@@ -30,4 +30,4 @@ volumes:
   grafana-storage:
 
 networks:
-  confluent:
+  workshop:
