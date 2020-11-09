@@ -80,7 +80,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "kafka_jvm_heap_usage{instance=~\"$instance\", env=\"$env\"}",
+              "expr": "jvm_memory_bytes_used{area=\"heap\", instance=\"$instance\"}",
               "intervalFactor": 2,
               "legendFormat": "{{type}}",
               "refId": "A",
@@ -160,18 +160,18 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "kafka_jvm_gc_collection_count{instance=~\"$instance\", name=~\"G1 Young.*\"}",
+              "expr": "jvm_gc_collection_seconds_count{instance=\"$instance\", gc=\"G1 Young Generation\"}",
               "intervalFactor": 2,
               "legendFormat": "G1 Young Generation",
-              "metric": "kafka_jvm_gc_collection_count",
+              "metric": "jvm_gc_collection_seconds_count",
               "refId": "A",
               "step": 60
             },
             {
-              "expr": "kafka_jvm_gc_collection_count{instance=~\"$instance\", name=~\"G1 Old.*\"}",
+              "expr": "jvm_gc_collection_seconds_count{instance=\"$instance\", gc=\"G1 Old Generation\"}",
               "intervalFactor": 2,
               "legendFormat": "G1 Old Generation",
-              "metric": "kafka_jvm_gc_collection_count",
+              "metric": "jvm_gc_collection_seconds_count",
               "refId": "B",
               "step": 60
             }
@@ -179,7 +179,7 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "JVM GC Collection Count",
+          "title": "JVM GC Collection Seconds Count",
           "tooltip": {
             "msResolution": false,
             "shared": true,
@@ -249,18 +249,18 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "kafka_jvm_gc_collection_time{instance=~\"$instance\", name=~\"G1 Young.*\"}",
+              "expr": "jvm_gc_collection_seconds_sum{instance=\"$instance\", gc=\"G1 Young Generation\"}",
               "intervalFactor": 2,
               "legendFormat": "G1 Young Generation",
-              "metric": "",
+              "metric": "jvm_gc_collection_seconds_sum",
               "refId": "A",
               "step": 60
             },
             {
-              "expr": "kafka_jvm_gc_collection_time{instance=~\"$instance\", name=~\"G1 Old.*\"}",
+              "expr": "jvm_gc_collection_seconds_sum{instance=\"$instance\", gc=\"G1 Old Generation\"}",
               "intervalFactor": 2,
               "legendFormat": "G1 Old Generation",
-              "metric": "kafka_jvm_gc_collection_time",
+              "metric": "jvm_gc_collection_seconds_sum",
               "refId": "B",
               "step": 60
             }
@@ -268,7 +268,7 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "JVM GC Collection Count",
+          "title": "JVM GC Collection Seconds Sum",
           "tooltip": {
             "msResolution": false,
             "shared": true,
@@ -325,32 +325,12 @@
         "current": {},
         "datasource": "prometheus",
         "hide": 0,
-        "includeAll": false,
-        "label": "env",
-        "multi": false,
-        "name": "env",
-        "options": [],
-        "query": "label_values(kafka_jvm_heap_usage, env)",
-        "refresh": 1,
-        "regex": "",
-        "sort": 0,
-        "tagValuesQuery": "",
-        "tags": [],
-        "tagsQuery": "",
-        "type": "query",
-        "useTags": false
-      },
-      {
-        "allValue": null,
-        "current": {},
-        "datasource": "prometheus",
-        "hide": 0,
         "includeAll": true,
         "label": "Broker",
         "multi": true,
         "name": "instance",
         "options": [],
-        "query": "label_values(kafka_jvm_heap_usage{env=\"$env\"}, instance)",
+        "query": "label_values(instance)",
         "refresh": 1,
         "regex": "",
         "sort": 0,
