@@ -15,8 +15,8 @@ services:
       ZOOKEEPER_INIT_LIMIT: 5
       ZOOKEEPER_SYNC_LIMIT: 2
       ZOOKEEPER_SERVERS: zk-1:2888:3888;zk-2:2888:3888;zk-3:2888:3888
-      KAFKA_OPTS: "-Dzookeeper.4lw.commands.whitelist=*"
-
+      KAFKA_OPTS: "-javaagent:/agents/jmx_prometheus_javaagent-0.10.jar=7071:/agents/zookeeper.yaml -Dzookeeper.4lw.commands.whitelist=*"
+    
   zk-2:
     image: confluentinc/cp-zookeeper:${version_confluent}
     hostname: zk-2
@@ -32,7 +32,7 @@ services:
       ZOOKEEPER_INIT_LIMIT: 5
       ZOOKEEPER_SYNC_LIMIT: 2
       ZOOKEEPER_SERVERS: zk-1:2888:3888;zk-2:2888:3888;zk-3:2888:3888
-      KAFKA_OPTS: "-Dzookeeper.4lw.commands.whitelist=*"
+      KAFKA_OPTS: "-javaagent:/agents/jmx_prometheus_javaagent-0.10.jar=7071:/agents/zookeeper.yaml -Dzookeeper.4lw.commands.whitelist=*"
 
   zk-3:
     image: confluentinc/cp-zookeeper:${version_confluent}
@@ -49,7 +49,7 @@ services:
       ZOOKEEPER_INIT_LIMIT: 5
       ZOOKEEPER_SYNC_LIMIT: 2
       ZOOKEEPER_SERVERS: zk-1:2888:3888;zk-2:2888:3888;zk-3:2888:3888
-      KAFKA_OPTS: "-Dzookeeper.4lw.commands.whitelist=*"
+      KAFKA_OPTS: "-javaagent:/agents/jmx_prometheus_javaagent-0.10.jar=7071:/agents/zookeeper.yaml -Dzookeeper.4lw.commands.whitelist=*"
 
   kafka-1:
     image: "confluentinc/cp-enterprise-kafka:${version_confluent}"
@@ -73,6 +73,7 @@ services:
       KAFKA_METRIC_REPORTERS: "io.confluent.metrics.reporter.ConfluentMetricsReporter"
       CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: "kafka-1:9092,kafka-2:9092,kafka-3:9092"
       KAFKA_JMX_OPTS: "${JMX_ARGS}"
+      KAFKA_OPTS: "-javaagent:/agents/jmx_prometheus_javaagent-0.10.jar=7071:/agents/kafka.yaml"
 
   kafka-2:
     image: "confluentinc/cp-enterprise-kafka:${version_confluent}"
@@ -92,6 +93,7 @@ services:
       KAFKA_LOG_RETENTION_HOURS: 6
       KAFKA_METRIC_REPORTERS: "io.confluent.metrics.reporter.ConfluentMetricsReporter"
       CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: "kafka-1:9092,kafka-2:9092,kafka-3:9092"
+      KAFKA_OPTS: "-javaagent:/agents/jmx_prometheus_javaagent-0.10.jar=7071:/agents/kafka.yaml"
 
   kafka-3:
     image: "confluentinc/cp-enterprise-kafka:${version_confluent}"
@@ -111,6 +113,7 @@ services:
       KAFKA_LOG_RETENTION_HOURS: 6
       KAFKA_METRIC_REPORTERS: "io.confluent.metrics.reporter.ConfluentMetricsReporter"
       CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: "kafka-1:9092,kafka-2:9092,kafka-3:9092"
+      KAFKA_OPTS: "-javaagent:/agents/jmx_prometheus_javaagent-0.10.jar=7071:/agents/kafka.yaml"
 
 volumes:
   data-zk-1:
